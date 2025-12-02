@@ -4,6 +4,8 @@ format: html
 editor: visual
 ---
 
+The link to my GitHub repository is : https://github.com/hamoco20/eval-grades.git
+
 ```{r}
 here::i_am("final graded lab.Rproj")
 library(here)
@@ -165,3 +167,19 @@ divine_grades |>
     title = "average grade in divine philosophy and ethics by group")
 ```
 
+Question 12
+```{r}
+grades |>
+  filter(!is.na(grade)) |>                
+  inner_join(courses |> select(course_id, module), by = "course_id") |>  
+  mutate(module = factor(module)) |>
+           ggplot(aes(x = grade, fill = module)) +
+  geom_density(alpha = 0.4) +              
+  labs(
+    title = "distribution of grades by module",
+    x = "grade",
+    y = "density",
+    fill = "module"
+  ) 
+```
+Module 2 seems to have the highest grades overall because of its right-wing position and an average above 10 compared to the the module 1 where grades seems more heterogenous but lower on average. So, module 1 seems to be more difficult than 2 and 3.
