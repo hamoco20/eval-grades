@@ -212,4 +212,33 @@ grades_per_student |>
   knitr::kable()
 ```
 
+Question 14
+```{r}
+ggplot(grades_per_student, aes(x = nb_grades, fill = sex)) +
+  geom_density(alpha = 0.4) +
+  labs(
+    title = "density of number of grades by sex",
+    x = "nb of grades",
+    y = "density",
+    fill = "sex"
+  ) 
+```
+Attendance between the 2 genders seems quite similar as the 2 dentsity curves are close with a slightly higher density for girls at the left wing, maybe pointing out that girls tend to have a less irregular attendance.
+
+Question 15
+```{r}
+courses |>
+  filter(course == "Astronomy and Cosmology") |>
+  pull(course_id)
+
+astro_grades_per_student <- grades |>
+  filter(course_id == 7, !is.na(grade)) |> 
+  group_by(id) |>
+  summarize(nb_grades_astro = n(), .groups = "drop") |>
+  inner_join(students |> select(id, group), by = "id")
+  
+astro_grades_per_student |>
+  slice_head(n = 10) |>
+  knitr::kable(caption = "nb of grades in Astronomy and Cosmology per student (Sample)")
+```
 
