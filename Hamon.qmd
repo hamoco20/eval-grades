@@ -3,4 +3,20 @@ title: "Hamon"
 format: html
 editor: visual
 ---
+```{r}
+here::i_am("final graded lab.Rproj")
+library(here)
+library(ggplot2)
+library(vroom)
+library(dplyr)
+library(tidyr)
+```
+# Introduction
+
+## Study Organisation
+
+Question 1
+```{r}
+courses <- vroom(here("data", "courses.csv"))
+```
 
