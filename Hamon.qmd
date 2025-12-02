@@ -44,6 +44,22 @@ students <- vroom(
     sex = col_factor()
   )
 )
+students
 ```
 
 ## Grades
+Question 4
+```{r}
+grades <- vroom(
+  here("data", "grades.csv"),
+  delim = ";",
+  na = "$",
+  col_types = cols(
+    id = col_integer(),
+    course_id = col_integer(),
+    grade = col_double()
+  )
+)
+grades
+```
+
