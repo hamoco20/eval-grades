@@ -10,6 +10,7 @@ library(ggplot2)
 library(vroom)
 library(dplyr)
 library(tidyr)
+library(lubridate)
 ```
 # Introduction
 
@@ -81,5 +82,30 @@ students |>
   arrange(group) |>
   ggplot(aes(x = factor(group), y = n, fill = sex)) +
   geom_col()
+  geom_col() +
+  labs(
+    title = "gender balance in groups"
+  )
+```
+
+Question 7
+```{r}
+students <- students |>
+  mutate(
+    age = time_length(today() - birth_date, unit = "year")
+  )
+
+students <- students |>
+  mutate(
+    age = round(age)
+  )
+
+ggplot(students, aes(x = age)) +
+  geom_histogram(binwidth = 1, fill = "skyblue", color="white") +
+  labs(
+    title = "distribution of students' ages",
+    x = "age in years",
+    y = "nb of students"
+  )
 ```
 
