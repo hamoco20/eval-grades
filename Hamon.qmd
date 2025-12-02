@@ -144,3 +144,24 @@ students |>
 
 Question 10 
 The data set contains `r sum(!is.na(grades$grade))` grades.
+
+Question 11
+```{r}
+courses |>
+  filter(course == "Divine Philosophy and Ethics") |>
+  pull(course_id)
+
+divine_grades <- grades |>
+  filter(course_id == 1) |>
+  inner_join(students, by = "id")
+
+divine_grades |>
+  group_by(group) |>
+  summarize(avg_grade = mean(grade, na.rm = TRUE)) |>
+  arrange(group) |>
+  ggplot(aes(x = factor(group), y = avg_grade)) +
+  geom_col(fill = "skyblue") +
+   labs(
+    title = "average grade in divine philosophy and ethics by group")
+```
+
