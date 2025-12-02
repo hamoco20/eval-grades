@@ -31,3 +31,19 @@ courses |>
   knitr::kable()
 ```
 
+## Students
+
+Question 3
+```{r}
+students <- vroom(
+  here("data", "students.csv"),
+  col_types = cols(
+    id = col_integer(),
+    group = col_factor(),
+    birth_date = col_date(),
+    sex = col_factor()
+  )
+)
+```
+
+## Grades
