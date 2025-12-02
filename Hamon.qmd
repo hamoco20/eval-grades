@@ -312,5 +312,19 @@ pivoted_df |>
 
 pivoted_df
 ```
-
+Question 20
+```{r}
+pivoted_df |>
+  select(id, `Divine Philosophy and Ethics`, `Architecture and Sculpture`) |>
+  drop_na() |>
+  ggplot(aes(x = `Architecture and Sculpture`, y = `Divine Philosophy and Ethics`)) +
+  geom_point(color = "steelblue", size = 3, alpha = 0.7) +
+  geom_smooth(method = "lm", color = "red", se = TRUE) +
+  labs(
+    title = "Relationship between Architecture and Sculpture vs Divine Philosophy and Ethics",
+    x = "avg grade in Architecture and Sculpture",
+    y = "avg grade in Divine Philosophy and Ethics"
+  )
+```
+There appears to be a positive correlation between the 2 averages.
 
