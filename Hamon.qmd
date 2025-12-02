@@ -3,6 +3,7 @@ title: "Hamon"
 format: html
 editor: visual
 ---
+
 ```{r}
 here::i_am("final graded lab.Rproj")
 library(here)
@@ -12,15 +13,19 @@ library(dplyr)
 library(tidyr)
 library(lubridate)
 ```
+
 # Introduction
 
 ## Study Organisation
 
 Question 1
+
 ```{r}
 courses <- vroom(here("data", "courses.csv"))
 ```
+
 Question 2
+
 ```{r}
 courses |>
   rename(
@@ -35,6 +40,7 @@ courses |>
 ## Students
 
 Question 3
+
 ```{r}
 students <- vroom(
   here("data", "students.csv"),
@@ -49,7 +55,9 @@ students
 ```
 
 ## Grades
+
 Question 4
+
 ```{r}
 grades <- vroom(
   here("data", "grades.csv"),
@@ -67,6 +75,7 @@ grades
 # Student population analysis
 
 Question 5
+
 ```{r}
 students |>
   count(group) |>
@@ -76,12 +85,12 @@ students |>
 ```
 
 Question 6
+
 ```{r}
 students |>
   count(group, sex) |>
   arrange(group) |>
   ggplot(aes(x = factor(group), y = n, fill = sex)) +
-  geom_col()
   geom_col() +
   labs(
     title = "gender balance in groups"
@@ -89,6 +98,7 @@ students |>
 ```
 
 Question 7
+
 ```{r}
 students <- students |>
   mutate(
@@ -108,7 +118,9 @@ ggplot(students, aes(x = age)) +
     y = "nb of students"
   )
 ```
+
 Question 8
+
 ```{r}
 students |>
   group_by(group) |>
@@ -118,7 +130,9 @@ students |>
   arrange(group) |>
   knitr::kable()
 ```
+
 Question 9
+
 ```{r}
 students |>
   group_by(group) |>
@@ -128,3 +142,5 @@ students |>
   knitr::kable() 
 ```
 
+Question 10 
+The data set contains `r sum(!is.na(grades$grade))` grades.
