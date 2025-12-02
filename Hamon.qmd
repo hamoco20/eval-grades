@@ -108,4 +108,14 @@ ggplot(students, aes(x = age)) +
     y = "nb of students"
   )
 ```
+Question 8
+```{r}
+students |>
+  group_by(group) |>
+  summarize(
+    median_age = median(age)
+    ) |>
+  arrange(group) |>
+  knitr::kable()
+```
 
