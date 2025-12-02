@@ -39,7 +39,6 @@ students <- vroom(
   here("data", "students.csv"),
   col_types = cols(
     id = col_integer(),
-    group = col_factor(),
     group = col_integer(),
     birth_date = col_date(),
     sex = col_factor()
@@ -72,6 +71,15 @@ students |>
   count(group) |>
   arrange(group) |>
   ggplot(aes(x = group, y=n)) +
+  geom_col()
+```
+
+Question 6
+```{r}
+students |>
+  count(group, sex) |>
+  arrange(group) |>
+  ggplot(aes(x = factor(group), y = n, fill = sex)) +
   geom_col()
 ```
 
