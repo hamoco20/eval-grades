@@ -190,11 +190,26 @@ Question 13
 ```{r}
 grades |>
   filter(!is.na(grade)) |>
+grades_per_student <- grades |>
+  filter(!is.na(grade)) |>         
   group_by(id) |>
   summarize(nb_grades = n(), .groups = "drop") |>
   inner_join(students, by = "id") |>
+  inner_join(students, by = "id") 
+
+grades_per_student |>
   slice_head(n = 10) |>
   knitr::kable(caption = "nb of grades per student (Sample)")
+  knitr::kable(caption = "nb of grades per student (Sample)") 
 
+grades_per_student |>
+  summarize(
+    min_grades = min(nb_grades),
+    max_grades = max(nb_grades),
+    avg_grades = round(mean(nb_grades), 2),
+    median_grades = median(nb_grades)
+  ) |>
+  knitr::kable()
 ```
+
 
