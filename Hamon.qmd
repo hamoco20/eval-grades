@@ -374,3 +374,18 @@ pivoted_df |>
 ```
 Indeed, for the student with the most correlated averages between the 2 courses, we observe a much clearer positive relationship between the 2 averages.
 
+Question 23
+```{r}
+pivoted_df |>
+  left_join(students |>  select(id, sex), by = "id") |>
+  rowwise() |>
+  mutate(
+    final_grade = mean(c_across(`Architecture and Sculpture`:`Rhetoric and Persuasion`), na.rm = TRUE)
+  ) |>
+  ungroup() |>
+  select(id, group, sex, final_grade) |>
+  arrange(desc(final_grade)) |>
+  slice(1:5) |>
+  knitr::kable(caption = "top 5 students by final grade")
+```
+
