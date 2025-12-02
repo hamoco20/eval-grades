@@ -241,4 +241,17 @@ astro_grades_per_student |>
   slice_head(n = 10) |>
   knitr::kable(caption = "nb of grades in Astronomy and Cosmology per student (Sample)")
 ```
+Question 16
+```{r}
+astro_grades_per_student |>
+  count(nb_grades_astro, name = "n_students") |>
+  arrange(nb_grades_astro) |>
+  ggplot(aes(x = factor(nb_grades_astro), y = n_students)) +
+  geom_col(fill = "lightyellow", color="white") +
+  labs(
+    title = "distribution of nb of grades in Astronomy and Cosmology",
+    x = "nb of grades",
+    y = "nb of students"
+  )
+```
 
