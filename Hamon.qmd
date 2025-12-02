@@ -328,3 +328,17 @@ pivoted_df |>
 ```
 There appears to be a positive correlation between the 2 averages.
 
+Question 21
+```{r}
+pivoted_df |>
+  select(id, group, `Rhetoric and Persuasion`, `Combat and Martial Arts of the Gods`) %>%
+  drop_na() |>  
+  group_by(group) |>
+  summarise(
+    correlation = cor(`Rhetoric and Persuasion`, `Combat and Martial Arts of the Gods`),
+    .groups = "drop"
+  ) |>
+  arrange(group) |>
+  knitr::kable()
+```
+
