@@ -194,12 +194,10 @@ grades_per_student <- grades |>
   filter(!is.na(grade)) |>         
   group_by(id) |>
   summarize(nb_grades = n(), .groups = "drop") |>
-  inner_join(students, by = "id") |>
   inner_join(students, by = "id") 
 
 grades_per_student |>
   slice_head(n = 10) |>
-  knitr::kable(caption = "nb of grades per student (Sample)")
   knitr::kable(caption = "nb of grades per student (Sample)") 
 
 grades_per_student |>
@@ -254,4 +252,18 @@ astro_grades_per_student |>
     y = "nb of students"
   )
 ```
+Question 17
+```{r}
+ggplot(astro_grades_per_student, aes(x = factor(group), y = nb_grades_astro)) +
+  geom_jitter(width = 0.1, height = 0, alpha = 0.5) +
+  stat_summary(fun = mean, geom = "point", color = "red", size = 2) +
+  labs(
+    title = "nb of grades per student in Astronomy and Cosmology by group",
+    x = "group",
+    y = "nb of grades"
+  )
+
+```
+It seems like the maximum number of grades per group is 10, the heterogeneity of number of grades observed don't seem to depend on the groups.
+
 
