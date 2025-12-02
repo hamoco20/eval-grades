@@ -342,3 +342,35 @@ pivoted_df |>
   knitr::kable()
 ```
 
+Question 22
+```{r}
+pivoted_df |>
+  select(id, group, `Rhetoric and Persuasion`, `Combat and Martial Arts of the Gods`) %>%
+  drop_na() |>  
+  group_by(group) |>
+  summarise(
+    correlation = cor(`Rhetoric and Persuasion`, `Combat and Martial Arts of the Gods`),
+    .groups = "drop"
+  ) |>
+  slice_max(order_by = abs(correlation)) %>%
+  pull(group)
+```
+
+
+```{r}
+pivoted_df |>
+  filter(group == 4) |>
+  select(id, `Rhetoric and Persuasion`, `Combat and Martial Arts of the Gods`) |>
+  drop_na() |>
+  ggplot(aes(x = `Combat and Martial Arts of the Gods`, y = `Rhetoric and Persuasion`)) +
+  geom_point(color = "blue", size = 3, alpha = 0.7) +
+  geom_smooth(method = "lm", color = "red", se = TRUE) +
+  labs(
+    title = ("Rhetoric vs Combat & Martial Arts"),
+    x = "Average grade in Combat and Martial Arts of the Gods",
+    y = "Average grade in Rhetoric and Persuasion"
+  ) +
+  theme_minimal(base_size = 10)
+```
+Indeed, for the student with the most correlated averages between the 2 courses, we observe a much clearer positive relationship between the 2 averages.
+
