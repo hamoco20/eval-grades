@@ -183,3 +183,18 @@ grades |>
   ) 
 ```
 Module 2 seems to have the highest grades overall because of its right-wing position and an average above 10 compared to the the module 1 where grades seems more heterogenous but lower on average. So, module 1 seems to be more difficult than 2 and 3.
+
+# Attendance analysis
+
+Question 13
+```{r}
+grades |>
+  filter(!is.na(grade)) |>
+  group_by(id) |>
+  summarize(nb_grades = n(), .groups = "drop") |>
+  inner_join(students, by = "id") |>
+  slice_head(n = 10) |>
+  knitr::kable(caption = "nb of grades per student (Sample)")
+
+```
+
