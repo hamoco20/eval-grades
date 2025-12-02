@@ -40,6 +40,7 @@ students <- vroom(
   col_types = cols(
     id = col_integer(),
     group = col_factor(),
+    group = col_integer(),
     birth_date = col_date(),
     sex = col_factor()
   )
@@ -61,5 +62,16 @@ grades <- vroom(
   )
 )
 grades
+```
+
+# Student population analysis
+
+Question 5
+```{r}
+students |>
+  count(group) |>
+  arrange(group) |>
+  ggplot(aes(x = group, y=n)) +
+  geom_col()
 ```
 
