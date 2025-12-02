@@ -188,8 +188,6 @@ Module 2 seems to have the highest grades overall because of its right-wing posi
 
 Question 13
 ```{r}
-grades |>
-  filter(!is.na(grade)) |>
 grades_per_student <- grades |>
   filter(!is.na(grade)) |>         
   group_by(id) |>
@@ -265,5 +263,54 @@ ggplot(astro_grades_per_student, aes(x = factor(group), y = nb_grades_astro)) +
 
 ```
 It seems like the maximum number of grades per group is 10, the heterogeneity of number of grades observed don't seem to depend on the groups.
+
+Question 18
+```{r}
+astro_grades_per_student <- grades |>
+  filter(course_id == courses$course_id[courses$course == "Astronomy and Cosmology"], 
+         !is.na(grade)) |>
+  group_by(id) |>
+  summarize(nb_grades_astro = n(), .groups = "drop") |>
+  inner_join(students |> select(id, group, sex), by = "id") 
+
+
+ggplot(astro_grades_per_student, aes(x = factor(group), y = nb_grades_astro, fill = sex)) +
+  geom_boxplot(position = position_dodge(width = 0.8)) +
+  labs(
+    title = "Number of Grades in Astronomy and Cosmology by Group and Sex",
+    x = "Group",
+    y = "Number of Grades",
+    fill = "Sex"
+)
+```
+Most students have the maximum number of grades.
+
+# Grade analysis
+
+Question 19
+```{r}
+grades_named <- grades |>
+  left_join(courses |> select(course_id, course), by = "course_id")
+
+avg_grades <- grades_named |>
+  group_by(id, course) |>
+  summarise(avg_grade = mean(grade, na.rm = TRUE), .groups = "drop")
+
+avg_grades <- avg_grades |>
+  left_join(students |> select(id, group), by = "id")
+
+pivoted_df <- avg_grades |>
+  pivot_wider(
+    names_from = course,
+    values_from = avg_grade
+  )
+
+pivoted_df |>
+  select(id, group, `Architecture and Sculpture`, `Astronomy and Cosmology`, `Combat and Martial Arts of the Gods`) |>
+  slice(1:5) |>
+  knitr::kable(caption = "Extract of average grades per student")
+
+pivoted_df
+```
 
 
